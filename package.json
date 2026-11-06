@@ -1,0 +1,47 @@
+{
+  "name": "gesture-mouse",
+  "version": "1.0.0",
+  "description": "Control your Mac cursor with hand gestures (Electron + MediaPipe)",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "vendor": "node scripts/prepare-vendor.js",
+    "dist": "npm run vendor && electron-builder --mac"
+  },
+  "build": {
+    "appId": "com.example.gesturemouse",
+    "productName": "Gesture Mouse",
+    "directories": {
+      "buildResources": "build"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "assets/**",
+      "renderer/**"
+    ],
+    "asarUnpack": [
+      "node_modules/@nut-tree-fork/**"
+    ],
+    "mac": {
+      "category": "public.app-category.utilities",
+      "target": [
+        "dmg"
+      ],
+      "hardenedRuntime": true,
+      "entitlements": "build/entitlements.mac.plist",
+      "entitlementsInherit": "build/entitlements.mac.plist",
+      "extendInfo": {
+        "NSCameraUsageDescription": "Gesture Mouse uses the camera to track your hand."
+      }
+    }
+  },
+  "devDependencies": {
+    "@mediapipe/tasks-vision": "^0.10.14",
+    "electron": "^45.2.3",
+    "electron-builder": "^26.18.0"
+  },
+  "dependencies": {
+    "@nut-tree-fork/nut-js": "^4.2.6"
+  }
+}
